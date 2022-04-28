@@ -13,23 +13,23 @@ const Board = () => {
   // ref 를 사용하여 변수 담기
   const nextId = useRef(11);
 
-//더미 데이터 호출
+  //더미 데이터 호출
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/users')
-      .then(res => setInfo(res.data))
+    axios.get('/api/test')
+      .then(res => setInfo([res.data]))
       .catch(err => console.log(err));
   }, []);
 
   const handleSave = (data) => {
     //데이터 수정하기
-    if (data.id) { //수정 데이터에는 id가 존재
+    if (data.idx) { //수정 데이터에는 id가 존재
       setInfo(
-        info.map(row => data.id === row.id ? {
-          id: data.id,
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          website: data.website,
+        info.map(row => data.idx === row.idx ? {
+          id: data.idx,
+          name: data.req_date,
+          email: data.req_name,
+          phone: data.brand_name,
+          website: data.review_date,
         } : row))
 
     } else { //바로 추가하기
@@ -48,10 +48,10 @@ const Board = () => {
       setInfo(info => info.concat(
         {
           id: nextId.current,
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          website: data.website
+          name: data.req_date,
+          email: data.req_name,
+          phone: data.brand_name,
+          website: data.review_date,
         }
       ))
       nextId.current += 1;
@@ -104,9 +104,9 @@ const Board = () => {
         </thead>
         <Tr info={info} handleRemove={handleRemove} handleEdit={handleEdit} />
       </table>
-      <Post onSaveData={handleSave} />
-      {modalOn && <Modal selectedData={selected} handleCancel={handleCancel} 
-      handleEditSubmit={handleEditSubmit} />}
+      {/* <Post onSaveData={handleSave} />
+      {modalOn && <Modal selectedData={selected} handleCancel={handleCancel}
+        handleEditSubmit={handleEditSubmit} />} */}
     </div>
   );
 };
