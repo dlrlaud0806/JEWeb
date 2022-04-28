@@ -13,10 +13,13 @@ const Board = () => {
   // ref 를 사용하여 변수 담기
   const nextId = useRef(11);
 
-  //더미 데이터 호출
+
+      // axios.get('/api/test')
+      // .then((Response)=>{console.log(Response.data.products)})
+      // .catch((Error)=>{console.log(Error)})
   useEffect(() => {
     axios.get('/api/test')
-      .then(res => setInfo([res.data]))
+      .then(res => setInfo(res.data.products))
       .catch(err => console.log(err));
   }, []);
 
