@@ -14,9 +14,9 @@ const Board = () => {
   const nextId = useRef(11);
 
 
-      // axios.get('/api/test')
-      // .then((Response)=>{console.log(Response.data.products)})
-      // .catch((Error)=>{console.log(Error)})
+  // axios.get('/api/test')
+  // .then((Response)=>{console.log(Response.data.products)})
+  // .catch((Error)=>{console.log(Error)})
   useEffect(() => {
     axios.get('/api/test')
       .then(res => setInfo(res.data.products))
@@ -33,6 +33,9 @@ const Board = () => {
           email: data.req_name,
           phone: data.brand_name,
           website: data.review_date,
+          bank: data.bank,
+          cost: data.cost,
+          pay_yn: data.pay_yn,
         } : row))
 
     } else { //바로 추가하기
@@ -55,6 +58,9 @@ const Board = () => {
           email: data.req_name,
           phone: data.brand_name,
           website: data.review_date,
+          bank: data.bank,
+          cost: data.cost,
+          pay_yn: data.pay_yn,
         }
       ))
       nextId.current += 1;
@@ -72,7 +78,10 @@ const Board = () => {
       name: item.name,
       email: item.email,
       phone: item.phone,
-      website: item.website
+      website: item.website,
+      bank: item.bank,
+      cost: item.cost,
+      pay_yn: item.pay_yn,
     };
     console.log(selectedData);
     setSelected(selectedData);
@@ -91,22 +100,24 @@ const Board = () => {
   return (
     <div className="container">
       <div className='fs-3 fw-bolder lh-lg text-center'> 블로그 리뷰 리스트</div>
-      <table className="table table-bordered">
-        <thead className='justify-between'>
-          <tr className='table-light'>
-            <th className="text-gray-300 px-4 py-3">요청일</th>
-            <th className="text-gray-300 px-4 py-3">요청자</th>
-            <th className="text-gray-300 px-4 py-3">업체명</th>
-            <th className="text-gray-300 px-4 py-3">작성일</th>
-            <th className="text-gray-300 px-4 py-3">입금은행</th>
-            <th className="text-gray-300 px-4 py-3">금액</th>
-            <th className="text-gray-300 px-4 py-3">입금여부</th>
-            <th className="text-gray-300 px-4 py-3">Edit</th>
-            <th className="text-gray-300 px-4 py-3">Delete</th>
-          </tr>
-        </thead>
-        <Tr info={info} handleRemove={handleRemove} handleEdit={handleEdit} />
-      </table>
+      <div className="table-responsive">
+        <table className="table table-bordered">
+          <thead className='table'>
+            <tr className='table-light'>
+              <th className="w-auto">요청일</th>
+              <th className="w-auto">요청자</th>
+              <th className="w-auto">업체명</th>
+              <th className="w-auto">작성일</th>
+              <th className="w-auto">입금은행</th>
+              <th className="w-auto">금액</th>
+              <th className="w-auto">입금여부</th>
+              <th className="w-auto">Edit</th>
+              <th className="w-auto">Delete</th>
+            </tr>
+          </thead>
+          <Tr info={info} handleRemove={handleRemove} handleEdit={handleEdit} />
+        </table>
+      </div>
       {/* <Post onSaveData={handleSave} />
       {modalOn && <Modal selectedData={selected} handleCancel={handleCancel}
         handleEditSubmit={handleEditSubmit} />} */}

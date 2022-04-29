@@ -1,4 +1,5 @@
 import React from 'react';
+import { PencilSquare, Trash } from 'react-bootstrap-icons';
 
 function dateFormat(date) {
     let month = date.getMonth() + 1;
@@ -18,20 +19,23 @@ const Td = ({ item, handleRemove, handleEdit }) => {
     const onEdit = () => {
         handleEdit(item);
     }
-    const reqd=new Date(item.req_date)
-    const revd=new Date(item.review_date)
-    
+    const reqd = new Date(item.req_date)
+    const revd = new Date(item.review_date)
+
     return (
         <>
-            <tr className='"bg-white border-2 border-gray-200'>
-                <td key={item.idx} className='table'>{dateFormat(reqd)}</td>
-                <td key={item.idx} className='px-4 py-3'>{item.req_name}</td>
-                <td key={item.idx} className='px-4 py-3'>{item.brand_name}</td>
-                <td key={item.idx} className='px-4 py-3'>{dateFormat(revd)}</td>
+            <tr className='"table'>
+                <td className='w-auto'>{dateFormat(reqd)}</td>
+                <td className='w-auto'>{item.req_name}</td>
+                <td className='w-auto'>{item.brand_name}</td>
+                <td className='w-auto'>{dateFormat(revd)}</td>
+                <td className='w-auto'>{item.bank}</td>
+                <td className='w-auto'>{item.cost}</td>
+                <td className='w-auto'>{item.pay_yn}</td>
                 <td onClick={onEdit} className='text-center text-purple-400 cursor-pointer show-modal'>
-                    <i class="bi bi-pencil"></i></td>
+                    <PencilSquare /></td>
                 <td onClick={onRemove} className='text-center text-purple-400 cursor-pointer'>
-                    <i class="bi bi-trash"></i></td>
+                    <Trash /></td>
             </tr>
         </>
     )
