@@ -11,61 +11,20 @@ const Board = () => {
 
   // 고유 값으로 사용 될 id
   // ref 를 사용하여 변수 담기
-  const nextId = useRef(11);
 
-
+  let refresh = false;
   // axios.get('/api/test')
   // .then((Response)=>{console.log(Response.data.products)})
   // .catch((Error)=>{console.log(Error)})
   useEffect(() => {
-    axios.get('/api/test')
+    axios.get('/api/listBoard')
       .then(res => setInfo(res.data.products))
       .catch(err => console.log(err));
-  }, []);
+    refresh = false;
+  }, [refresh]);
 
-  const handleSave = (data) => {
-    //데이터 수정하기
-    if (data.idx) { //수정 데이터에는 id가 존재
-      setInfo(
-        info.map(row => data.idx === row.idx ? {
-          id: data.idx,
-          name: data.req_date,
-          email: data.req_name,
-          phone: data.brand_name,
-          website: data.review_date,
-          bank: data.bank,
-          cost: data.cost,
-          pay_yn: data.pay_yn,
-        } : row))
 
-    } else { //바로 추가하기
-      // 데이터 추가하기 방법1
-      // setInfo((prev) => {
-      //   return [ ...prev, {
-      //     id: nextId.current,
-      //     name: data.name,
-      //     email: data.email,
-      //     phone: data.phone,
-      //     website: data.website
-      //   }]
-      // });
 
-      //데이터 추가하기 방법2
-      setInfo(info => info.concat(
-        {
-          id: nextId.current,
-          name: data.req_date,
-          email: data.req_name,
-          phone: data.brand_name,
-          website: data.review_date,
-          bank: data.bank,
-          cost: data.cost,
-          pay_yn: data.pay_yn,
-        }
-      ))
-      nextId.current += 1;
-    }
-  }
 
   const handleRemove = (id) => {
     setInfo(info => info.filter(item => item.id !== id));
@@ -91,11 +50,6 @@ const Board = () => {
     setModalOn(false);
   }
 
-  const handleEditSubmit = (item) => {
-    console.log(item);
-    handleSave(item);
-    setModalOn(false);
-  }
 
   return (
     <div className="container">
@@ -119,8 +73,8 @@ const Board = () => {
         </table>
       </div>
       {/* { <Post onSaveData={handleSave} /> */}
-      {modalOn && <EditModal selectedData={selected} handleCancel={handleCancel}
-        handleEditSubmit={handleEditSubmit} />}
+      {/* {modalOn && <EditModal selectedData={selected} handleCancel={handleCancel}
+        handleEditSubmit={handleEditSubmit} />} */}
     </div>
   );
 };

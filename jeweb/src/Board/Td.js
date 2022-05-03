@@ -33,7 +33,7 @@ const Td = ({ item, handleRemove, handleEdit }) => {
                 <td className='w-auto text-center edit-icon' onClick={() => setModalShow(true)}>
                     <PencilSquare />
                 </td>
-                <td className='text-center cursor-pointer'>
+                <td className='text-center cursor-pointer edit-icon'>
                     <Trash /></td>
             </tr>
             <EditModal
