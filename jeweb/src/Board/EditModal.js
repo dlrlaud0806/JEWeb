@@ -22,7 +22,7 @@ const EditModal = (props) => {
   const handleSave = (data) => {
     //데이터 수정하기
 
-    axios.post('http://localhost:4000/api/updateBoard', {
+    axios.post('/api/updateBoard', {
       data
     })
       .then(alert("Update Sucess!"))

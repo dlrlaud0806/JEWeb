@@ -2,7 +2,7 @@ const express = require('express');
 const router = express();
 const db = require('../config/db')
 
-// http://localhost:4000/ 으로 접속 시 응답메시지 출력
+
 router.get('/listBoard', (req, res) => {
     db.query('SELECT * FROM t_review', (err, data) => {
         if (!err) res.send({ products: data });
@@ -12,7 +12,7 @@ router.get('/listBoard', (req, res) => {
 
 router.post('/updateBoard', (req, res) => {
     const updatequery = 'update t_review set req_date=? req_name=? brand_name=? review_date=? bank_name=? cost=? pay_yn=? where idx=?';
-    console.log(req);
+    console.log(" body is : " + req.body);
     let req_date = req.body.req_date;
     let req_name = req.body.req_name;
     let brand_name = req.body.brand_name;

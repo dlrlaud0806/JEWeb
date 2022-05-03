@@ -9,9 +9,6 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const cors = require('cors');
-
-app.use(cors());
 
 root.render(
   <React.StrictMode>
