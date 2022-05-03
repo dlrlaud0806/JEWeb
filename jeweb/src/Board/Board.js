@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from 'axios';
 import Tr from './Tr';
 import Post from './Post';
-import Modal from './Modal';
+import EditModal from './EditModal';
 
 const Board = () => {
   const [info, setInfo] = useState([]);
@@ -104,23 +104,23 @@ const Board = () => {
         <table className="table table-bordered">
           <thead className='table'>
             <tr className='table-light'>
-              <th className="w-auto">요청일</th>
-              <th className="w-auto">요청자</th>
-              <th className="w-auto">업체명</th>
-              <th className="w-auto">작성일</th>
-              <th className="w-auto">입금은행</th>
-              <th className="w-auto">금액</th>
-              <th className="w-auto">입금여부</th>
-              <th className="w-auto">Edit</th>
-              <th className="w-auto">Delete</th>
+              <th className="w-auto text-center">요청일</th>
+              <th className="w-auto text-center">요청자</th>
+              <th className="w-auto text-center">업체명</th>
+              <th className="w-auto text-center">작성일</th>
+              <th className="w-auto text-center">입금은행</th>
+              <th className="w-auto text-center">금액</th>
+              <th className="w-auto text-center">입금여부</th>
+              <th className="w-auto text-center">Edit</th>
+              <th className="w-auto text-center">Delete</th>
             </tr>
           </thead>
           <Tr info={info} handleRemove={handleRemove} handleEdit={handleEdit} />
         </table>
       </div>
-      {/* <Post onSaveData={handleSave} />
-      {modalOn && <Modal selectedData={selected} handleCancel={handleCancel}
-        handleEditSubmit={handleEditSubmit} />} */}
+      {/* { <Post onSaveData={handleSave} /> */}
+      {modalOn && <EditModal selectedData={selected} handleCancel={handleCancel}
+        handleEditSubmit={handleEditSubmit} />}
     </div>
   );
 };

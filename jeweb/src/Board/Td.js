@@ -1,42 +1,46 @@
 import React from 'react';
 import { PencilSquare, Trash } from 'react-bootstrap-icons';
 
-function dateFormat(date) {
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
+import EditModal from './EditModal';
+import '../index.css'
 
-    month = month >= 10 ? month : '0' + month;
-    day = day >= 10 ? day : '0' + day;
+import { dateFormat } from '../utils.js'
 
-    return date.getFullYear() + '-' + month + '-' + day;
-}
 
 const Td = ({ item, handleRemove, handleEdit }) => {
-    const onRemove = () => {
-        handleRemove(item.id)
-    }
+    const [modalShow, setModalShow] = React.useState(false);
 
-    const onEdit = () => {
-        handleEdit(item);
-    }
+    // const onRemove = () => {
+    //     handleRemove(item.id)
+    // }
+
+    // const onEdit = () => {
+    //     handleEdit(item);
+    // }
     const reqd = new Date(item.req_date)
     const revd = new Date(item.review_date)
 
     return (
         <>
             <tr className='"table'>
-                <td className='w-auto'>{dateFormat(reqd)}</td>
-                <td className='w-auto'>{item.req_name}</td>
+                <td className='w-auto text-center'>{dateFormat(reqd)}</td>
+                <td className='w-auto text-center'>{item.req_name}</td>
                 <td className='w-auto'>{item.brand_name}</td>
-                <td className='w-auto'>{dateFormat(revd)}</td>
+                <td className='w-auto text-center'>{dateFormat(revd)}</td>
                 <td className='w-auto'>{item.bank}</td>
-                <td className='w-auto'>{item.cost}</td>
-                <td className='w-auto'>{item.pay_yn}</td>
-                <td onClick={onEdit} className='text-center text-purple-400 cursor-pointer show-modal'>
-                    <PencilSquare /></td>
-                <td onClick={onRemove} className='text-center text-purple-400 cursor-pointer'>
+                <td className='w-auto text-center'>{item.cost}</td>
+                <td className='w-auto text-center'>{item.pay_yn}</td>
+                <td className='w-auto text-center edit-icon' onClick={() => setModalShow(true)}>
+                    <PencilSquare />
+                </td>
+                <td className='text-center cursor-pointer'>
                     <Trash /></td>
             </tr>
+            <EditModal
+                info={item}
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
         </>
     )
 };
