@@ -6,8 +6,6 @@ import EditModal from './EditModal';
 
 const Board = () => {
   const [info, setInfo] = useState([]);
-  const [selected, setSelected] = useState('');
-  const [modalOn, setModalOn] = useState(false);
 
   // 고유 값으로 사용 될 id
   // ref 를 사용하여 변수 담기
@@ -31,7 +29,6 @@ const Board = () => {
   }
 
   const handleEdit = (item) => {
-    setModalOn(true);
     const selectedData = {
       id: item.id,
       name: item.name,
@@ -43,12 +40,7 @@ const Board = () => {
       pay_yn: item.pay_yn,
     };
     console.log(selectedData);
-    setSelected(selectedData);
   };
-
-  const handleCancel = () => {
-    setModalOn(false);
-  }
 
 
   return (
