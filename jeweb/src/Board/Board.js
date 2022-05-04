@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import Tr from './Tr';
 import Post from './Post';
-import EditModal from './EditModal';
 
 const Board = () => {
   const [info, setInfo] = useState([]);
-
+  const [limit, setlimit] = useState(10);
+  const [page, setPage] = useState(10);
+  const offset = (page - 1) * limit;
   // 고유 값으로 사용 될 id
   // ref 를 사용하여 변수 담기
 
-  let refresh = false;
   // axios.get('/api/test')
   // .then((Response)=>{console.log(Response.data.products)})
   // .catch((Error)=>{console.log(Error)})
@@ -18,8 +18,7 @@ const Board = () => {
     axios.get('/api/listBoard')
       .then(res => setInfo(res.data.products))
       .catch(err => console.log(err));
-    refresh = false;
-  }, [refresh]);
+  });
 
 
 
@@ -41,11 +40,20 @@ const Board = () => {
     };
     console.log(selectedData);
   };
-
+  let pagedinfo = info.slice(offset, offset + limit)
 
   return (
     <div className="container">
       <div className='fs-3 fw-bolder lh-lg text-center'> 블로그 리뷰 리스트</div>
+      <label>
+        post per page
+        <select type="number" value={limit} onChange={({ target: { value } }) => setlimit(Number(value))}>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </label>
+
       <div className="table-responsive">
         <table className="table table-bordered">
           <thead className='table'>
@@ -61,7 +69,8 @@ const Board = () => {
               <th className="w-auto text-center">Delete</th>
             </tr>
           </thead>
-          <Tr info={info} handleRemove={handleRemove} handleEdit={handleEdit} />
+          { }
+          <Tr info={pagedinfo} handleRemove={handleRemove} handleEdit={handleEdit} />
         </table>
       </div>
       {/* { <Post onSaveData={handleSave} /> */}

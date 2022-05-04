@@ -9,7 +9,7 @@ import { dateFormat } from '../utils.js'
 
 const Td = ({ item, handleRemove, handleEdit }) => {
     const [modalShow, setModalShow] = React.useState(false);
-
+    console.log(item);
     // const onRemove = () => {
     //     handleRemove(item.id)
     // }
