@@ -2,7 +2,12 @@
 const express = require('express');
 const app = express();
 const api = require('./routes/index');
+const bodyParser = require('body-parser');
+
 // api 처리는 './routes/index'에서 일괄처리
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use('/api', api);
 
 // server port 4000 할당

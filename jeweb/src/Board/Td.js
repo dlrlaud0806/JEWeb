@@ -27,7 +27,7 @@ const Td = ({ item, handleRemove, handleEdit }) => {
                 <td className='w-auto text-center'>{item.req_name}</td>
                 <td className='w-auto'>{item.brand_name}</td>
                 <td className='w-auto text-center'>{dateFormat(revd)}</td>
-                <td className='w-auto'>{item.bank}</td>
+                <td className='w-auto'>{item.bank_name}</td>
                 <td className='w-auto text-center'>{item.cost}</td>
                 <td className='w-auto text-center'>{item.pay_yn}</td>
                 <td className='w-auto text-center edit-icon' onClick={() => setModalShow(true)}>

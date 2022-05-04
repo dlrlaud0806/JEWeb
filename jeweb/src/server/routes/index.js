@@ -11,20 +11,29 @@ router.get('/listBoard', (req, res) => {
 })
 
 router.post('/updateBoard', (req, res) => {
-    const updatequery = 'update t_review set req_date=? req_name=? brand_name=? review_date=? bank_name=? cost=? pay_yn=? where idx=?';
-    console.log(" body is : " + req.body);
-    let req_date = req.body.req_date;
-    let req_name = req.body.req_name;
-    let brand_name = req.body.brand_name;
-    let review_date = req.body.review_date;
-    let bank_name = req.body.bank_name;
-    let cost = req.body.cost;
-    let pay_yn = req.body.pay_yn;
-    let idx = req.body.idx;
+    const updatequery = 'update t_review set req_date=?, req_name=?, brand_name=?, review_date=?, bank_name=?, cost=?, pay_yn=? where idx=?';
+    console.log(updatequery);
+    let data = req.body.data;
+    console.log(data);
+
+    let req_date = data.req_date;
+    let req_name = data.req_name;
+    let brand_name = data.brand_name;
+    let review_date = data.review_date;
+    let bank_name = data.bank_name || "";
+    let cost = data.cost;
+    let pay_yn = data.pay_yn;
+    let idx = data.idx;
 
     db.query(updatequery, [req_date, req_name, brand_name, review_date, bank_name, cost, pay_yn, idx], (err, data) => {
-        if (!err) res.send({ products: data });
-        else res.send(err);
+        if (!err) {
+            console.log("success" + data)
+            res.sendStatus(200);
+        }
+        else {
+            console.log("fail" + err)
+            res.send(err.response);
+        }
     })
 })
 

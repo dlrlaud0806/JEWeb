@@ -21,14 +21,14 @@ const EditModal = (props) => {
 
   const handleSave = (data) => {
     //데이터 수정하기
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': ''
+    }
 
-    axios.post('/api/updateBoard', {
-      data
-    })
-      .then(alert("Update Sucess!"))
+    axios.post('/api/updateBoard', { data })
+      .then(props.onHide())
       .catch(err => console.log(err));
-
-    return <Link to='/board' />
   }
 
   const handleEditSubmit = (item) => {
@@ -38,13 +38,14 @@ const EditModal = (props) => {
 
   const onSubmitEdit = (e) => {
     e.preventDefault();
+    console.log(e);
     handleEditSubmit(edited);
+    window.location.reload();
   }
 
   const predata = props.info;
-  let rdate = dateFormat(predata.req_date);
-  let rvdate = dateFormat(predata.review_date);
-
+  predata.req_date = dateFormat(predata.req_date);
+  predata.review_date = dateFormat(predata.review_date);
   console.log(props.info);
 
   return (
@@ -63,7 +64,7 @@ const EditModal = (props) => {
         <Modal.Body>
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">요청일</span>
-            <input type="text" class="form-control" placeholder={rdate} aria-label="requestDate" aria-describedby="basic-addon1" />
+            <input type="text" class="form-control" placeholder={predata.req_date} onChange={(event) => { props.info.req_date = event.target.value }} aria-label="requestDate" aria-describedby="basic-addon1" />
           </div>
 
           <div class="input-group mb-3">
@@ -78,7 +79,7 @@ const EditModal = (props) => {
 
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon4">작성일</span>
-            <input type="text" class="form-control" placeholder={rvdate} aria-label="reviewDate" aria-describedby="basic-addon4" />
+            <input type="text" class="form-control" placeholder={predata.review_date} aria-label="reviewDate" aria-describedby="basic-addon4" />
           </div>
 
           <div class="input-group mb-3">
