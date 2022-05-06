@@ -3,14 +3,16 @@ import axios from 'axios';
 import Tr from './Tr';
 import Post from './Post';
 import EditModal from './EditModal';
+import Paging from "./Paging";
 
 const Board = () => {
   const [info, setInfo] = useState([]);
+  const [page, setPage] = useState(1);
+  const [pageinfo, setPageInfo] = useState([]);
 
   // 고유 값으로 사용 될 id
   // ref 를 사용하여 변수 담기
 
-  let refresh = false;
   // axios.get('/api/test')
   // .then((Response)=>{console.log(Response.data.products)})
   // .catch((Error)=>{console.log(Error)})
@@ -18,11 +20,15 @@ const Board = () => {
     axios.get('/api/listBoard')
       .then(res => setInfo(res.data.products))
       .catch(err => console.log(err));
-    refresh = false;
-  }, [refresh]);
 
+    setPageInfo(pageinfo => info.slice((page - 1) * 10 + 1, page * 10));
+  }, [page, info]);
 
-
+  const handlePageChange = (page) => {
+    console.log("handlepagechange", page);
+    setPage(page);
+    setPageInfo(pageinfo => info.slice((page - 1) * 10 + 1, page * 10));
+  };
 
   const handleRemove = (id) => {
     setInfo(info => info.filter(item => item.id !== id));
@@ -61,9 +67,10 @@ const Board = () => {
               <th className="w-auto text-center">Delete</th>
             </tr>
           </thead>
-          <Tr info={info} handleRemove={handleRemove} handleEdit={handleEdit} />
+          <Tr info={pageinfo} handleRemove={handleRemove} handleEdit={handleEdit} />
         </table>
       </div>
+      <Paging page={page} count={info.length} handlePageChange={handlePageChange} />
       {/* { <Post onSaveData={handleSave} /> */}
       {/* {modalOn && <EditModal selectedData={selected} handleCancel={handleCancel}
         handleEditSubmit={handleEditSubmit} />} */}
