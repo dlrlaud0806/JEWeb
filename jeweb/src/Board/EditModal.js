@@ -46,7 +46,6 @@ const EditModal = (props) => {
   const predata = props.info;
   predata.req_date = dateFormat(predata.req_date);
   predata.review_date = dateFormat(predata.review_date);
-  console.log(props.info);
 
   return (
     <Modal
