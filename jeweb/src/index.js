@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import Dashboard from './Dashboard';
 import Board from './Board/Board';
+import Collection from './File/collection';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -15,6 +16,7 @@ root.render(
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="board" element={<Board />} />
+        <Route path="collection" element={<Collection />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
